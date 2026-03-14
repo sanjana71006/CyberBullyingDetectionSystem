@@ -35,7 +35,7 @@ router.get('/messages/:userId', protect, async (req, res) => {
     const messages = await Message.find({
       $or: [
         { senderId: myId, receiverId: userId },
-        { senderId: userId, receiverId: myId },
+        { senderId: userId, receiverId: myId, isDelivered: true },
       ],
     }).sort({ createdAt: 1 });
     res.json(messages);

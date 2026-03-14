@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-import { FiShield, FiMenu, FiX, FiLogOut, FiAlertTriangle, FiActivity } from 'react-icons/fi';
+import { FiMenu, FiX, FiLogOut, FiAlertTriangle, FiActivity } from 'react-icons/fi';
 import { useAuth } from '../context/AuthContext';
 
 export default function Navbar() {
@@ -73,19 +73,20 @@ export default function Navbar() {
 
         {/* ── Logo ── */}
         <Link to="/" className="flex items-center gap-3 group" id="nav-logo" style={{ textDecoration: 'none' }}>
-          {/* Hex shield icon */}
-          <div style={{
-            width: '38px', height: '38px',
-            background: 'linear-gradient(135deg, #4F7CFF, #00E5FF)',
-            clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            boxShadow: '0 0 20px rgba(0,229,255,0.4)',
-            transition: 'box-shadow 0.3s ease',
-          }}
+          <img
+            src="/Logo.jpeg"
+            alt="CyberShield logo"
+            style={{
+              width: '38px',
+              height: '38px',
+              objectFit: 'cover',
+              borderRadius: '10px',
+              border: '1px solid rgba(255,255,255,0.5)',
+              boxShadow: '0 0 20px rgba(0,229,255,0.35)',
+              transition: 'box-shadow 0.3s ease',
+            }}
             className="group-hover:shadow-[0_0_30px_rgba(0,229,255,0.7)]"
-          >
-            <FiShield style={{ color: '#fff', fontSize: '18px' }} />
-          </div>
+          />
 
           <div>
             <div style={{

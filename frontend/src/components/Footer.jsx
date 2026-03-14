@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FiShield, FiGithub, FiTwitter, FiLinkedin, FiMail, FiActivity } from 'react-icons/fi';
+import { FiGithub, FiTwitter, FiLinkedin, FiMail, FiActivity } from 'react-icons/fi';
 
 const footerLinks = {
   'Platform': [
@@ -49,15 +49,18 @@ export default function Footer() {
           {/* Brand */}
           <div style={{ minWidth: '200px' }}>
             <Link to="/" id="footer-logo" style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', textDecoration: 'none', marginBottom: '1rem' }}>
-              <div style={{
-                width: '36px', height: '36px',
-                background: 'linear-gradient(135deg, #4F7CFF, #00E5FF)',
-                clipPath: 'polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                boxShadow: '0 0 15px rgba(0,229,255,0.3)',
-              }}>
-                <FiShield style={{ color: '#fff', fontSize: '16px' }} />
-              </div>
+              <img
+                src="/Logo.jpeg"
+                alt="CyberShield logo"
+                style={{
+                  width: '36px',
+                  height: '36px',
+                  objectFit: 'cover',
+                  borderRadius: '10px',
+                  border: '1px solid rgba(255,255,255,0.5)',
+                  boxShadow: '0 0 15px rgba(0,229,255,0.3)',
+                }}
+              />
               <div>
                 <div style={{ fontFamily: 'Orbitron, monospace', fontWeight: 900, fontSize: '1rem', color: '#E6F1FF' }}>
                   CYBER<span style={{ color: '#00E5FF' }}>SHIELD</span>

@@ -9,6 +9,13 @@ import Violation from '../models/Violation.js';
 const ML_API_URL = process.env.ML_API_URL || 'http://localhost:8000/predict';
 const VIOLATION_THRESHOLD = 3;
 
+const isCyberbullyingPrediction = (prediction, category) => {
+  if (Number(prediction) === 1) return true;
+  if (typeof prediction === 'string' && prediction.trim().toLowerCase() === 'cyberbullying') return true;
+  if (typeof category === 'string' && category.trim().toLowerCase() === 'cyberbullying') return true;
+  return false;
+};
+
 /**
  * Generates a context-aware, constructive rewrite of a toxic message.
  * Analyzes the original text to produce a relevant polite alternative.
@@ -105,7 +112,7 @@ export const initSocket = (server) => {
         const senderId = socket.user._id;
 
         // 1. Call Python ML API
-        let prediction = 0, confidence = 0, toxicityScore = 0, abusiveWords = [];
+        let prediction = 0, confidence = 0, toxicityScore = 0, abusiveWords = [], predictionCategory = null;
         try {
           const mlResponse = await axios.post(ML_API_URL, { text });
           const mlData = mlResponse.data;
@@ -113,12 +120,13 @@ export const initSocket = (server) => {
           confidence = mlData.confidence;
           toxicityScore = mlData.toxicity_score;
           abusiveWords = mlData.abusive_words;
+          predictionCategory = mlData.category || mlData.label || null;
         } catch (mlError) {
           console.error('ML API Error:', mlError.message);
           // Fallback or handle gracefully, assuming safe if API is down
         }
 
-        const isBullying = prediction === 1;
+        const isBullying = isCyberbullyingPrediction(prediction, predictionCategory);
         const sender = await User.findById(senderId);
 
         // 2. Base Message Creation (will save later based on logic)
